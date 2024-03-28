@@ -52,8 +52,6 @@ This project is a fraud detection application that consists of multiple microser
 - **Zipkin**: For distributed tracing.
 - **Micrometer**: For monitoring and metrics collection.
 - **Database**: Used to store customer data, fraud details, and notification data.
-- **Messaging Service (Optional)**: Can be integrated for asynchronous communication between microservices.
-- **Docker**: For containerization of microservices.
 - **GitHub**: For version control and collaboration.
 
 ### Architecture Overview

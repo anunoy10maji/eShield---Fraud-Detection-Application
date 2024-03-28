@@ -1,42 +1,51 @@
 ## eShield - Fraud Detection Application
-
 # Overview
-This project is a Fraud Detection Application designed to provide fraud detection services for customer registration. It consists of several microservices built using Spring Boot and Spring Cloud, and utilizes various technologies such as Eureka for service discovery, Feign for communication between microservices, and Zipkin for distributed tracing.
+This project is a fraud detection application that consists of multiple microservices to handle customer registration, fraud detection, and notification. It leverages various technologies such as Spring Cloud Netflix (Eureka for service discovery, Feign for communication between microservices), Spring Cloud Gateway for API routing, and monitoring tools like Zipkin and Micrometer for distributed tracing and monitoring purposes.
 
 # Features
 # Customer Service (CRUD Operations)
-. Allows CRUD operations for managing customer data.
-. Provides RESTful endpoints for creating, reading, updating, and deleting customer records.
-![Non_Fraud_Case](https://github.com/anunoy10maji/eShield---Fraud-Detection-Application/assets/86963404/dff92f4e-e898-4bbe-9642-677fb67aa567)
+
+. Manages customer data including registration, update, retrieval, and deletion.
+. Utilizes Spring Data JPA for database interactions.
+. Exposes RESTful APIs for CRUD operations on customer data.
 
 # Fraud Detection Service
-. Performs fraud checks based on business logic upon customer registration.
-. Communicates with other microservices via Feign clients.
-. Stores fraud details along with customer information in the fraud database.
-# API Gateway
-. Utilizes an API Gateway for routing requests to appropriate microservices.
-. Provides a single entry point for client applications to access various services.
-# Eureka Server and Service Discovery
-. Implements Eureka server for service discovery and registration.
-. Enables dynamic service registration and load balancing across multiple instances.
-# Distributed Tracing and Monitoring
-. Integrates Zipkin for distributed tracing to monitor and debug service calls.
-. Utilizes Micrometer for collecting and publishing metrics for monitoring and analysis.
+. Performs fraud checks based on business logic.
+. Communicates internally with the Customer Service using Feign client for fraud checks.
+. Stores fraud details along with customer data in a dedicated fraud database.
+. Generates a token for notifications if fraud is detected.
 
-## Architecture
-The architecture of the Fraud Detection Application is based on microservices principles, with each microservice handling a specific set of responsibilities.
+# Notification Service
+. Sends notifications to customers.
+. Stores notification data in a notification database.
+. Sends a token with notifications if fraud is detected, otherwise, no token is provided.
 
-# Customer Service: Manages customer data and exposes CRUD endpoints.
-# Fraud Detection Service: Performs fraud checks and stores fraud details.
-# API Gateway: Routes requests to appropriate microservices and handles client interactions.
-# Eureka Server: Provides service discovery and registration for dynamic scaling.
-# Zipkin: Collects and traces distributed call information for monitoring and debugging.
-# Micrometer: Collects metrics data for monitoring and analysis.
+# API Gateway (Spring Cloud Gateway)
+. Routes incoming requests to the appropriate microservice based on the request path.
+. Acts as a single entry point to the system and provides routing, filtering, and load balancing.
+
+# Eureka Server (Service Discovery)
+. Registers and manages service instances.
+. Provides service discovery and load balancing capabilities to enable communication between microservices.
+
+# Zipkin (Distributed Tracing)
+. Collects and analyzes trace data for requests that span multiple microservices.
+. Provides insights into the performance and dependencies of services in the system.
+
+# Micrometer (Monitoring)
+. Collects metrics and performance data from microservices.
+. Enables monitoring and visualization of application performance and health.
 
 # Technologies Used
-. Spring Boot
-. Spring Cloud (Feign Client)
-. Netflix Eureka (API Gateway)
-. Zipkin (Distributed Tracing)
-. Micrometer (Metrics Collection)
-. Java
+=> Spring Boot: For building microservices.
+=> Spring Cloud Netflix: For service discovery (Eureka), client-side load balancing (Ribbon), and declarative REST client (Feign).
+=> Spring Cloud Gateway: For API routing and filtering.
+=> Spring Data JPA: For database interactions.
+=> Zipkin: For distributed tracing.
+=> Micrometer: For monitoring and metrics collection.
+=> Database: Used to store customer data, fraud details, and notification data.
+=> Docker: For containerization of microservices.
+=> GitHub: For version control and collaboration.
+
+# Architecture Overview
+The architecture of the fraud detection system is based on microservices, where each microservice is responsible for a specific functionality. Service communication is handled through RESTful APIs, and service discovery and load balancing are facilitated by Eureka Server. The API Gateway provides a unified entry point to the system, and monitoring and tracing are enabled through Zipkin and Micrometer.
